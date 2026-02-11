@@ -3,7 +3,7 @@ import { useQuiz } from '../context/QuizContext';
 import { formatTime } from '../utils/helpers';
 
 /**
- * LoginScreen
+ * LoginScreen — Brutalism Playful
  * - Input nama pengguna dengan validasi
  * - Tampilkan banner resume jika ada data tersimpan
  */
@@ -13,25 +13,24 @@ const MAX_NAME_LENGTH = 30;
 
 const validateName = (name) => {
   const trimmedName = name.trim();
-  
+
   if (!trimmedName) {
     return { isValid: false, error: 'Nama tidak boleh kosong' };
   }
-  
+
   if (trimmedName.length < MIN_NAME_LENGTH) {
     return { isValid: false, error: `Nama minimal ${MIN_NAME_LENGTH} karakter` };
   }
-  
+
   if (trimmedName.length > MAX_NAME_LENGTH) {
     return { isValid: false, error: `Nama maksimal ${MAX_NAME_LENGTH} karakter` };
   }
-  
-  // Check for valid characters (letters, spaces, numbers, common symbols)
+
   const validNameRegex = /^[a-zA-Z0-9\s'.\-]+$/;
   if (!validNameRegex.test(trimmedName)) {
     return { isValid: false, error: 'Nama hanya boleh huruf, angka, dan spasi' };
   }
-  
+
   return { isValid: true, error: null };
 };
 
@@ -39,13 +38,12 @@ export default function LoginScreen({ resumeData, onResume }) {
   const { state, setUser, fetchAndStart } = useQuiz();
   const [touched, setTouched] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const validation = validateName(state.user);
   const showError = touched && !validation.isValid;
 
   const handleNameChange = useCallback((e) => {
     const value = e.target.value;
-    // Prevent exceeding max length
     if (value.length <= MAX_NAME_LENGTH + 5) {
       setUser(value);
     }
@@ -57,11 +55,11 @@ export default function LoginScreen({ resumeData, onResume }) {
 
   const handleSubmit = useCallback(async () => {
     setTouched(true);
-    
+
     if (!validation.isValid) {
       return;
     }
-    
+
     setIsSubmitting(true);
     try {
       await fetchAndStart();
@@ -79,17 +77,21 @@ export default function LoginScreen({ resumeData, onResume }) {
 
   return (
     <div className="qa-wrap">
-      <div className="qa-card">
+      <div className="qa-card" style={{ position: 'relative' }}>
+
+        {/* Decorative stickers */}
+        <span className="qa-sticker qa-sticker-1">🧠</span>
+        <span className="qa-sticker qa-sticker-2">⚡</span>
 
         {/* ── Logo ── */}
         <div className="qa-logo">QUIZMASTER</div>
-        <div className="qa-tagline">Test Your Knowledge · 10 Questions · 5 Minutes</div>
+        <div className="qa-tagline">10 Pertanyaan · 5 Menit · Ayo Main!</div>
 
         {/* ── Resume Banner ── */}
         {resumeData && (
           <div className="qa-resume">
             <div>
-              <div className="qa-resume-head">💾 Kuis Tersimpan Ditemukan!</div>
+              <div className="qa-resume-head">💾 Kuis Tersimpan!</div>
               <p>
                 Soal {resumeData.currentIdx + 1} / {resumeData.questions.length}
                 &nbsp;·&nbsp;
@@ -105,14 +107,14 @@ export default function LoginScreen({ resumeData, onResume }) {
         {/* ── Form ── */}
         <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
           <label className="qa-label" htmlFor="username-input">
-            Nama Kamu
+            ✏️ Siapa Namamu?
           </label>
           <div className="qa-input-wrapper">
             <input
               id="username-input"
               className={`qa-input ${showError ? 'qa-input-error' : ''}`}
               type="text"
-              placeholder="Masukkan namamu di sini..."
+              placeholder="Ketik namamu di sini..."
               value={state.user}
               onChange={handleNameChange}
               onBlur={handleBlur}
@@ -139,12 +141,12 @@ export default function LoginScreen({ resumeData, onResume }) {
             className="qa-btn qa-btn-primary"
             disabled={!validation.isValid || isSubmitting}
           >
-            {isSubmitting ? '⏳ Memuat...' : '🚀 Mulai Kuis Baru'}
+            {isSubmitting ? '⏳ Memuat...' : '🚀 Mulai Kuis!'}
           </button>
         </form>
       </div>
 
-      <div className="qa-footer">Powered by OpenTDB API</div>
+      <div className="qa-footer">⚡ Powered by OpenTDB API ⚡</div>
     </div>
   );
 }
