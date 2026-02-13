@@ -3,12 +3,6 @@ import { useQuiz } from '../context/QuizContext';
 import { LETTERS, DIFF_MAP } from '../utils/helpers';
 import Timer from './Timer';
 
-/**
- * QuizScreen — Brutalism Playful
- * - Satu soal per layar
- * - Flash animasi → auto pindah soal
- * - Progress bar striped & counter soal
- */
 export default function QuizScreen() {
   const { state, saveAnswer, nextQuestion, finishQuiz } = useQuiz();
   const { questions, currentIdx, answers } = state;

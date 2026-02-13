@@ -2,11 +2,6 @@ import { useState, useCallback } from 'react';
 import { useQuiz } from '../context/QuizContext';
 import { formatTime } from '../utils/helpers';
 
-/**
- * LoginScreen — Brutalism Playful
- * - Input nama pengguna dengan validasi
- * - Tampilkan banner resume jika ada data tersimpan
- */
 
 const MIN_NAME_LENGTH = 2;
 const MAX_NAME_LENGTH = 30;

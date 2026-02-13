@@ -1,7 +1,4 @@
-/**
- * LoadingScreen — Brutalism Playful
- * Ditampilkan saat soal sedang di-fetch dari OpenTDB API
- */
+
 export default function LoadingScreen() {
   return (
     <div className="qa-wrap">

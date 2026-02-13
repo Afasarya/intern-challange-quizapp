@@ -2,12 +2,7 @@ import { useEffect } from 'react';
 import { useQuiz }   from '../context/QuizContext';
 import { formatTime, timerClass } from '../utils/helpers';
 
-/**
- * Timer
- * - Countdown mundur setiap detik
- * - Warna berubah: hijau → kuning (90d) → merah + pulse (30d)
- * - Ketika habis → otomatis finishQuiz()
- */
+
 export default function Timer() {
   const { state, tick, finishQuiz, answersRef } = useQuiz();
   const { timeLeft, screen } = state;
@@ -20,7 +15,7 @@ export default function Timer() {
     }, 1000);
 
     return () => clearInterval(id);
-  }, [screen]);   // hanya re-subscribe saat screen berubah
+  }, [screen]);   
 
   // Pantau timeLeft: jika 0 → finish
   useEffect(() => {

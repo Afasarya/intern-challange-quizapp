@@ -1,12 +1,7 @@
 import { useQuiz } from '../context/QuizContext';
 import { getResultTier } from '../utils/helpers';
 
-/**
- * ResultScreen — Brutalism Playful
- * - Jumlah benar, salah, dijawab, dilewati
- * - Progress skor visual striped
- * - Tombol main lagi
- */
+
 export default function ResultScreen() {
   const { state, restartQuiz } = useQuiz();
   const { questions, answers, user } = state;
@@ -83,7 +78,7 @@ export default function ResultScreen() {
         </button>
       </div>
 
-      <div className="qa-footer">⚡ Powered by OpenTDB API ⚡</div>
+      <div className="qa-footer"> Powered by OpenTDB API </div>
     </div>
   );
 }

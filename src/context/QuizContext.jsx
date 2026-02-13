@@ -2,19 +2,13 @@ import { createContext, useContext, useReducer, useRef, useEffect } from 'react'
 import { processQuestion }            from '../utils/helpers';
 import { saveQuizState, clearQuizState } from '../utils/storage';
 
-/* ─────────────────────────────────────────────
-   CONSTANTS
-───────────────────────────────────────────── */
-export const QUIZ_DURATION = 300;   // 5 menit (detik)
+export const QUIZ_DURATION = 180;   // 3 menit (detik)
 export const TOTAL_Q       = 10;    // jumlah soal
 
 // API URL from environment variable
-const BASE_API_URL = import.meta.env.VITE_OPENTDB_API_URL || 'https://opentdb.com/api.php';
+const BASE_API_URL = import.meta.env.VITE_OPENTDB_API_URL;
 const API_URL = `${BASE_API_URL}?amount=${TOTAL_Q}&type=multiple&encode=url3986`;
 
-/* ─────────────────────────────────────────────
-   INITIAL STATE
-───────────────────────────────────────────── */
 const initialState = {
   screen     : 'login',   // 'login' | 'loading' | 'quiz' | 'result'
   user       : '',
@@ -24,9 +18,6 @@ const initialState = {
   timeLeft   : QUIZ_DURATION,
 };
 
-/* ─────────────────────────────────────────────
-   REDUCER
-───────────────────────────────────────────── */
 function reducer(state, action) {
   switch (action.type) {
 
@@ -80,9 +71,7 @@ function reducer(state, action) {
   }
 }
 
-/* ─────────────────────────────────────────────
-   CONTEXT
-───────────────────────────────────────────── */
+
 const QuizContext = createContext(null);
 
 export function QuizProvider({ children }) {
@@ -91,7 +80,6 @@ export function QuizProvider({ children }) {
   const answersRef = useRef(state.answers);
   useEffect(() => { answersRef.current = state.answers; }, [state.answers]);
 
-  /* ── Persist ke localStorage setiap kali soal / jawaban / waktu berubah ── */
   useEffect(() => {
     if (state.screen !== 'quiz') return;
     saveQuizState({
@@ -104,7 +92,6 @@ export function QuizProvider({ children }) {
     });
   }, [state.currentIdx, state.answers, state.screen, state.timeLeft]);
 
-  /* ── ACTIONS ─────────────────────────────────────────────────── */
 
   const setUser = (name)  => dispatch({ type: 'SET_USER', payload: name });
 
@@ -155,9 +142,6 @@ export function QuizProvider({ children }) {
   );
 }
 
-/* ─────────────────────────────────────────────
-   CUSTOM HOOK
-───────────────────────────────────────────── */
 export const useQuiz = () => {
   const ctx = useContext(QuizContext);
   if (!ctx) throw new Error('useQuiz harus digunakan di dalam <QuizProvider>');

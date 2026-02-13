@@ -6,17 +6,13 @@ import LoadingScreen                     from './components/LoadingScreen';
 import QuizScreen                        from './components/QuizScreen';
 import ResultScreen                      from './components/ResultScreen';
 
-/* ─────────────────────────────────────────────
-   Inner App (di dalam QuizProvider)
-───────────────────────────────────────────── */
+
 function Inner() {
   const { state, resumeQuiz } = useQuiz();
   const [resumeData, setResumeData] = useState(null);
 
-  // Saat pertama mount: cek apakah ada data kuis tersimpan di localStorage
   useEffect(() => {
     const saved = loadQuizState();
-    // Hanya tampilkan resume jika masih ada waktu tersisa
     if (saved?.screen === 'quiz' && saved?.questions?.length > 0 && saved?.timeLeft > 0) {
       setResumeData(saved);
     }
@@ -44,9 +40,7 @@ function Inner() {
   );
 }
 
-/* ─────────────────────────────────────────────
-   App Root — Wrap dengan QuizProvider
-───────────────────────────────────────────── */
+
 export default function App() {
   return (
     <QuizProvider>
