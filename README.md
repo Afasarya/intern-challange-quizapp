@@ -11,7 +11,7 @@ Aplikasi kuis berbasis React menggunakan soal dari [OpenTDB API](https://opentdb
 | 🔐 Login | Input nama pengguna sebelum memulai kuis |
 | 📡 OpenTDB API | 10 soal pilihan ganda acak dari API |
 | 📊 Progress | Nomor soal + jumlah yang sudah dijawab real-time |
-| ⏱️ Timer | Countdown 5 menit dengan perubahan warna |
+| ⏱️ Timer | Countdown 3 menit dengan perubahan warna |
 | 1️⃣ Satu soal/halaman | Auto pindah setelah jawab |
 | 🏁 Hasil | Benar, salah, dijawab, dilewati + skor % |
 | 💾 Resume Kuis | State disimpan ke localStorage, bisa dilanjutkan setelah browser ditutup |
@@ -80,7 +80,6 @@ quiz-app/
 - **Context API** + useReducer (state management)
 - **localStorage** (resume kuis)
 - **OpenTDB API** (sumber soal)
-- **CSS Pure** (tanpa library UI)
 
 ---
 
